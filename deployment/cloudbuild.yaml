@@ -1,0 +1,33 @@
+steps:
+- name: gcr.io/cloud-builders/docker
+  args: ['build',
+         '-t','asia-northeast2-docker.pkg.dev/$PROJECT_ID/rag-app/rag-system-image:$BUILD_ID',
+         '-t','asia-northeast2-docker.pkg.dev/$PROJECT_ID/rag-app/rag-system-image:latest',
+         '-f','deployment/Dockerfile',
+         '.']
+  id: Build Docker Image
+
+- name: gcr.io/cloud-builders/docker
+  args: ['push','--all-tags','asia-northeast2-docker.pkg.dev/$PROJECT_ID/rag-app/rag-system-image']
+  id: Push Docker Images
+
+- name: gcr.io/google.com/cloudsdktool/cloud-sdk
+  entrypoint: gcloud
+  args:
+    ['run','deploy','rag-app',
+     '--image','asia-northeast2-docker.pkg.dev/$PROJECT_ID/rag-app/rag-system-image:latest',
+     '--region','asia-northeast2','--platform','managed',
+     '--allow-unauthenticated','--project','$PROJECT_ID','--quiet']
+  id: Deploy to Cloud Run
+
+images:
+- 'asia-northeast2-docker.pkg.dev/$PROJECT_ID/rag-app/rag-system-image:$BUILD_ID'
+- 'asia-northeast2-docker.pkg.dev/$PROJECT_ID/rag-app/rag-system-image:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+
+
+
+

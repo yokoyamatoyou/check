@@ -1,0 +1,53 @@
+# ===== Runtime only (Cloud Run 本番用・依存固定) =====
+streamlit
+pandas>=2.2,<2.3
+plotly>=5.18,<6
+
+# Google SDKs（解決を安定させるために pin ）
+google-cloud-firestore>=2.14,<3
+google-cloud-storage>=2.14,<3
+google-cloud-aiplatform>=1.64,<2
+google-cloud-secret-manager>=2.18,<3
+google-api-python-client>=2.100,<3
+google-auth-httplib2>=0.2.0,<1
+google-auth-oauthlib>=1.0.0,<2    # Cloud Run で不要なら削除可
+# 下位依存の範囲も狭める
+uritemplate>=4.0.0,<5
+httplib2>=0.20,<0.23
+google-api-core>=2.15,<3
+protobuf>=4.23,<6
+grpcio>=1.58,<2
+
+# Core scientific
+numpy>=1.26,<2.0   # OpenCV 等が NumPy 2 系未対応のため
+
+# Docs / PDF / XML
+python-docx>=1.1.2,<1.2
+lxml>=4.9.3,<5.0
+PyMuPDF>=1.23,<1.24
+
+# LLM クライアント
+openai==1.86.0
+anthropic==0.60.0
+google-generativeai
+
+# Payments
+stripe>=5,<6
+
+# Search / RAG
+rank-bm25>=0.2,<0.3
+
+# OCR / CV
+opencv-python-headless==4.8.1.78
+Pillow>=9.5,<10.0
+pytesseract
+
+easyocr==1.7.1
+# CPU 版 PyTorch（不要なら 2 行とも削除で軽量化）
+torch==2.1.0
+torchvision==0.16.0
+
+# ===== 開発系（pytest / playwright 等）は別ファイルに分離推奨 =====
+# dev-requirements.txt などに移すと本番イメージが軽くなります。
+
+

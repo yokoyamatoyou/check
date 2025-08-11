@@ -1,0 +1,6 @@
+numpy>=1.26,<2.0
+lxml>=4.9.3,<5.0
+Pillow>=9.5,<10.0
+PyMuPDF>=1.23,<1.24
+python-docx>=1.1.2,<1.2
+opencv-python-headless==4.8.1.78
